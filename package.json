@@ -3,9 +3,26 @@
   "version": "0.1.0",
   "description": "CLI and agent hook pack that catches generic AI frontend output before it ships.",
   "type": "module",
+  "homepage": "https://github.com/ckmadethis/agent-design-gate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckmadethis/agent-design-gate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ckmadethis/agent-design-gate/issues"
+  },
   "bin": {
     "agent-design-gate": "./bin/agent-design-gate.mjs"
   },
+  "files": [
+    "bin",
+    "hooks",
+    "skills",
+    "fixtures",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "scan": "node ./bin/agent-design-gate.mjs scan --path .",
     "test": "node ./bin/agent-design-gate.mjs scan --path fixtures/good-ui --fail-on warn"
@@ -17,9 +34,12 @@
     "codex",
     "frontend",
     "design",
+    "design-review",
+    "frontend-quality",
     "quality-gate",
     "hooks",
-    "lint"
+    "lint",
+    "cursor"
   ],
   "author": "CKMADETHIS",
   "license": "MIT",
