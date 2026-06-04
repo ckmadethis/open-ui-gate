@@ -1,0 +1,9 @@
+{
+  "name": "agent-design-gate",
+  "description": "A frontend quality gate for AI coding agents. Includes a scan CLI, Claude Code hook and design-review skill.",
+  "author": {
+    "name": "CKMADETHIS",
+    "email": "ck@ckmadethis.com"
+  }
+}
+

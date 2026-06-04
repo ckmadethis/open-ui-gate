@@ -1,0 +1,29 @@
+{
+  "name": "agent-design-gate",
+  "version": "0.1.0",
+  "description": "CLI and agent hook pack that catches generic AI frontend output before it ships.",
+  "type": "module",
+  "bin": {
+    "agent-design-gate": "./bin/agent-design-gate.mjs"
+  },
+  "scripts": {
+    "scan": "node ./bin/agent-design-gate.mjs scan --path .",
+    "test": "node ./bin/agent-design-gate.mjs scan --path fixtures/good-ui --fail-on warn"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "claude-code",
+    "codex",
+    "frontend",
+    "design",
+    "quality-gate",
+    "hooks",
+    "lint"
+  ],
+  "author": "CKMADETHIS",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
