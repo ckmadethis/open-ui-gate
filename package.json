@@ -12,7 +12,7 @@
     "url": "https://github.com/ckmadethis/agent-design-gate/issues"
   },
   "bin": {
-    "agent-design-gate": "./bin/agent-design-gate.mjs"
+    "agent-design-gate": "bin/agent-design-gate.mjs"
   },
   "files": [
     "bin",
