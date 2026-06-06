@@ -1,6 +1,6 @@
-# OpenUI Gate v0.1.1
+# OpenUI Gate v0.1.2
 
-Rename and licence polish release.
+Rename, licence and launch-readiness release.
 
 OpenUI Gate is a tiny CLI and hook pack for teams using coding agents to build frontend surfaces.
 

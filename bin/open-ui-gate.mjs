@@ -2,7 +2,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 const UI_EXTENSIONS = new Set([".tsx", ".jsx", ".html", ".css", ".scss", ".sass", ".less"]);
 const IGNORE_SEGMENTS = new Set(["node_modules", ".git", ".next", "dist", "build", ".turbo", "coverage"]);

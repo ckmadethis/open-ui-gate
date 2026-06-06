@@ -1,7 +1,7 @@
 ---
 name: open-ui-gate
 description: Use when building, editing, reviewing, or shipping frontend UI with an AI coding agent.
-version: 0.1.1
+version: 0.1.2
 ---
 
 # OpenUI Gate
