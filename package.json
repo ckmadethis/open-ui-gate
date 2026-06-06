@@ -1,6 +1,6 @@
 {
   "name": "open-ui-gate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI agent UI lint and design gate for catching generic frontend output before it ships.",
   "type": "module",
   "homepage": "https://github.com/ckmadethis/open-ui-gate#readme",

@@ -1,8 +1,17 @@
-# OpenUI Gate v0.1.0
+# OpenUI Gate v0.1.1
 
-First public release.
+Rename and licence polish release.
 
 OpenUI Gate is a tiny CLI and hook pack for teams using coding agents to build frontend surfaces.
+
+## What Changed
+
+- Renamed the project and package to `open-ui-gate`.
+- Switched the licence posture to Apache-2.0 with NOTICE and trademark guidance.
+- Added a Node test suite for pass/fail, JSON output and usage errors.
+- Added a GitHub Actions test workflow.
+- Added contribution, security and conduct guidance.
+- De-duped overlapping findings on the same rule/file/line.
 
 ## What It Does
 
