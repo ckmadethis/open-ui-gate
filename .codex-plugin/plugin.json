@@ -1,9 +1,8 @@
 {
-  "name": "agent-design-gate",
+  "name": "open-ui-gate",
   "description": "A frontend quality gate for AI coding agents. Includes a scan CLI, hook snippets and design-review skill.",
   "author": {
     "name": "CKMADETHIS",
     "email": "ck@ckmadethis.com"
   }
 }
-

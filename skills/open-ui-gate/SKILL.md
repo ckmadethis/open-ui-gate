@@ -1,10 +1,10 @@
 ---
-name: agent-design-gate
+name: open-ui-gate
 description: Use when building, editing, reviewing, or shipping frontend UI with an AI coding agent.
 version: 0.1.0
 ---
 
-# Agent Design Gate
+# OpenUI Gate
 
 When frontend files are changed, treat design quality as a shipping gate, not a vibe check.
 
@@ -19,16 +19,15 @@ When frontend files are changed, treat design quality as a shipping gate, not a 
 7. Run the CLI before final response:
 
 ```bash
-agent-design-gate scan --path . --fail-on warn
+open-ui-gate scan --path . --fail-on warn
 ```
 
 ## Pass Line
 
 When complete, state:
 
-`DESIGN-GATE: pass (agent-design-gate scan run, no warn/error findings)`.
+`DESIGN-GATE: pass (open-ui-gate scan run, no warn/error findings)`.
 
 If the task only touched a non-UI bug or config:
 
 `DESIGN-GATE: N/A - no new UI surface`.
-

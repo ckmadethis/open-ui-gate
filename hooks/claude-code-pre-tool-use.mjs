@@ -26,7 +26,7 @@ if (!isWriteTool || !isFrontend || isExcluded) {
 
 process.stdout.write(JSON.stringify({
   systemMessage: [
-    "AGENT DESIGN GATE: frontend file edit detected.",
+    "OPENUI GATE: frontend file edit detected.",
     "",
     "Before finishing, verify the UI is not generic agent output:",
     "- real product-specific copy, no lorem/TODO/placeholder content",
@@ -36,8 +36,7 @@ process.stdout.write(JSON.stringify({
     "- CTA text is specific to the user action",
     "- layout is checked on mobile and desktop",
     "",
-    "Run: agent-design-gate scan --path . --fail-on warn",
+    "Run: open-ui-gate scan --path . --fail-on warn",
     "If this is a bug fix only, state: design gate N/A - no new UI surface."
   ].join("\\n")
 }));
-

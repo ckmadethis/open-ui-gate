@@ -1,13 +1,13 @@
-# Agent Design Gate
+# OpenUI Gate
 
-ESLint catches broken code. Agent Design Gate catches AI-looking UI.
+ESLint catches broken code. OpenUI Gate catches AI-looking UI.
 
-`agent-design-gate` is a tiny CLI and hook pack for teams using Claude Code, Codex, Cursor or other coding agents to build frontend surfaces. It scans UI files for the generic patterns agents keep shipping: placeholder copy, purple gradients, vague CTAs, fake images, nested-card layouts and frontend edits made without design context.
+`open-ui-gate` is a tiny CLI and hook pack for teams using Claude Code, Codex, Cursor or other coding agents to build frontend surfaces. It scans UI files for the generic patterns agents keep shipping: placeholder copy, purple gradients, vague CTAs, fake images, nested-card layouts and frontend edits made without design context.
 
 The point is not to replace taste. The point is to give agents a hard checklist before they call a task finished.
 
 ```bash
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 ```
 
 ## The 10 Second Demo
@@ -15,8 +15,8 @@ npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
 Bad agent-generated UI gets stopped:
 
 ```bash
-$ node ./bin/agent-design-gate.mjs scan --path fixtures/bad-ui --fail-on warn
-agent-design-gate: scanned 1 UI files
+$ node ./bin/open-ui-gate.mjs scan --path fixtures/bad-ui --fail-on warn
+open-ui-gate: scanned 1 UI files
 [ERROR] placeholder-content page.tsx:7 - Placeholder content is visible in UI code. (Lorem ipsum)
 [WARN] generic-ai-copy page.tsx:6 - Generic marketing phrase often produced by AI agents. (Unlock the power)
 [WARN] purple-gradient-default page.tsx:3 - Dominant purple/indigo/violet gradients often read as generic AI UI.
@@ -27,8 +27,8 @@ agent-design-gate: scanned 1 UI files
 Intentional UI passes:
 
 ```bash
-$ node ./bin/agent-design-gate.mjs scan --path fixtures/good-ui --fail-on warn
-agent-design-gate: scanned 1 UI files
+$ node ./bin/open-ui-gate.mjs scan --path fixtures/good-ui --fail-on warn
+open-ui-gate: scanned 1 UI files
 PASS: no findings
 ```
 
@@ -45,29 +45,29 @@ Most teams already run ESLint. Fewer teams run a taste gate.
 Run directly from GitHub today:
 
 ```bash
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 ```
 
 Local development:
 
 ```bash
-git clone https://github.com/ckmadethis/agent-design-gate.git
-cd agent-design-gate
-node ./bin/agent-design-gate.mjs scan --path ./fixtures/bad-ui --fail-on warn
+git clone https://github.com/ckmadethis/open-ui-gate.git
+cd open-ui-gate
+node ./bin/open-ui-gate.mjs scan --path ./fixtures/bad-ui --fail-on warn
 ```
 
 NPM package name is available, but not published yet. After publishing to npm, this will become the stable install path:
 
 ```bash
-npm install -g agent-design-gate
+npm install -g open-ui-gate
 ```
 
 ## Usage
 
 ```bash
-agent-design-gate scan --path ./app
-agent-design-gate scan --path ./app --format json
-agent-design-gate scan --path ./app --fail-on warn
+open-ui-gate scan --path ./app
+open-ui-gate scan --path ./app --format json
+open-ui-gate scan --path ./app --fail-on warn
 ```
 
 Exit codes:
@@ -117,7 +117,7 @@ The hook does not block by default. It injects a reminder when the agent edits f
 Use this as a lightweight UI quality gate in frontend repos:
 
 ```yaml
-name: Agent Design Gate
+name: OpenUI Gate
 
 on:
   pull_request:
@@ -136,17 +136,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npx --yes github:ckmadethis/agent-design-gate scan --path ./src --fail-on warn
+      - run: npx --yes github:ckmadethis/open-ui-gate scan --path ./src --fail-on warn
 ```
 
 ## Agent Skill
 
-See `skills/agent-design-gate/SKILL.md` for a copyable skill that tells an agent how to use the gate during frontend work.
+See `skills/open-ui-gate/SKILL.md` for a copyable skill that tells an agent how to use the gate during frontend work.
+
+## Licence
+
+OpenUI Gate is open source under the Apache License 2.0. See `LICENSE`,
+`NOTICE` and `TRADEMARK.md`.
 
 ## Public Roadmap
 
 - `scan-diff` mode for PR review
-- Rule configuration via `agent-design-gate.config.json`
+- Rule configuration via `open-ui-gate.config.json`
 - Playwright screenshot audit helper
 - Rulesets for SaaS, ecommerce, portfolios, dashboards and docs
 - Claude/Codex plugin package

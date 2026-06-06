@@ -1,22 +1,22 @@
-# Agent Design Gate Launch Kit
+# OpenUI Gate Launch Kit
 
 ## Core Positioning
 
-Agent Design Gate is ESLint for AI-looking UI.
+OpenUI Gate is ESLint for AI-looking UI.
 
 It catches frontend patterns that coding agents overproduce: placeholder copy, vague CTAs, fake image slots, purple gradients, decorative blobs and card soup.
 
-Primary URL: https://github.com/ckmadethis/agent-design-gate
+Primary URL: https://github.com/ckmadethis/open-ui-gate
 
 Install:
 
 ```bash
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 ```
 
 ## One-Line Hooks
 
-- ESLint catches broken code. Agent Design Gate catches AI-looking UI.
+- ESLint catches broken code. OpenUI Gate catches AI-looking UI.
 - Stop letting agents ship purple-gradient SaaS soup.
 - A tiny quality gate for frontend code written by coding agents.
 - Your coding agent needs a taste checkpoint before it says done.
@@ -27,7 +27,7 @@ npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
 Title:
 
 ```text
-Show HN: Agent Design Gate - ESLint for AI-looking UI
+Show HN: OpenUI Gate - ESLint for AI-looking UI
 ```
 
 Body:
@@ -41,10 +41,10 @@ It is intentionally simple: not a replacement for taste, just a hard checkpoint 
 
 Run:
 
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 
 Repo:
-https://github.com/ckmadethis/agent-design-gate
+https://github.com/ckmadethis/open-ui-gate
 ```
 
 ## X Post
@@ -58,33 +58,33 @@ I kept watching coding agents ship frontend work that compiled but looked generi
 - "unlock the power" copy
 - card soup
 
-So I made Agent Design Gate.
+So I made OpenUI Gate.
 
 ESLint for AI-looking UI.
 
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 
-https://github.com/ckmadethis/agent-design-gate
+https://github.com/ckmadethis/open-ui-gate
 ```
 
 ## LinkedIn Post
 
 ```text
-I released Agent Design Gate, a small open-source CLI for teams using coding agents to build frontend surfaces.
+I released OpenUI Gate, a small open-source CLI for teams using coding agents to build frontend surfaces.
 
 The problem is not that agents cannot write frontend code. They can.
 
 The problem is that their first pass often looks generic: placeholder copy, vague CTAs, fake image slots, one-note gradients and nested cards everywhere.
 
-Agent Design Gate scans UI files for those patterns before the agent calls the task finished.
+OpenUI Gate scans UI files for those patterns before the agent calls the task finished.
 
 It is not a replacement for taste or design review. It is a practical quality gate for agent-generated UI.
 
 Try it:
-npx --yes github:ckmadethis/agent-design-gate scan --path ./app --fail-on warn
+npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn
 
 Repo:
-https://github.com/ckmadethis/agent-design-gate
+https://github.com/ckmadethis/open-ui-gate
 ```
 
 ## Reddit Feedback Post
@@ -100,7 +100,7 @@ I am not trying to replace design review; I want a simple pre-commit/CI speed bu
 
 What rules would you add or remove?
 
-Repo: https://github.com/ckmadethis/agent-design-gate
+Repo: https://github.com/ckmadethis/open-ui-gate
 ```
 
 Candidate communities to evaluate manually:
@@ -128,7 +128,7 @@ Outline:
 1. The new frontend failure mode: generated code that compiles but looks generic.
 2. The patterns agents overproduce.
 3. Why a small CLI beats another style guide paragraph.
-4. How Agent Design Gate works.
+4. How OpenUI Gate works.
 5. How to wire it into Claude Code, Codex-style workflows and CI.
 6. What rules should be added next.
 
@@ -136,7 +136,7 @@ CTA:
 
 ```text
 Try it on a frontend repo and open an issue with the first false positive:
-https://github.com/ckmadethis/agent-design-gate
+https://github.com/ckmadethis/open-ui-gate
 ```
 
 ## Product Hunt
@@ -152,13 +152,13 @@ ESLint for AI-looking UI
 Short description:
 
 ```text
-Agent Design Gate is a tiny CLI and hook pack that catches generic frontend patterns produced by coding agents before they ship.
+OpenUI Gate is a tiny CLI and hook pack that catches generic frontend patterns produced by coding agents before they ship.
 ```
 
 Maker comment:
 
 ```text
-I built Agent Design Gate after watching coding agents produce frontend work that was technically correct but visually generic.
+I built OpenUI Gate after watching coding agents produce frontend work that was technically correct but visually generic.
 
 The first release catches placeholder copy, vague CTAs, fake image slots, purple/indigo gradient defaults, decorative blobs, missing image alt text and nested-card risk.
 
@@ -182,7 +182,7 @@ Hey {name},
 
 I released a tiny OSS tool that may fit your agent/frontend workflow:
 
-https://github.com/ckmadethis/agent-design-gate
+https://github.com/ckmadethis/open-ui-gate
 
 It scans UI files for generic patterns coding agents overproduce: placeholder copy, vague CTAs, fake image slots, purple gradients, missing image alt text and nested-card layouts.
 

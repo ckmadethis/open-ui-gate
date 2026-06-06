@@ -120,14 +120,14 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  return `agent-design-gate ${VERSION}
+  return `open-ui-gate ${VERSION}
 
 Usage:
-  agent-design-gate scan --path ./app [--format text|json] [--fail-on info|warn|error]
+  open-ui-gate scan --path ./app [--format text|json] [--fail-on info|warn|error]
 
 Examples:
-  agent-design-gate scan --path .
-  agent-design-gate scan --path ./src --format json --fail-on warn
+  open-ui-gate scan --path .
+  open-ui-gate scan --path ./src --format json --fail-on warn
 `;
 }
 
@@ -147,7 +147,16 @@ function lineNumber(content, index) {
 
 function scanFile(file, root) {
   const content = readFileSync(file, "utf8");
+  const relativeFile = relative(root, file).replace(/\\/g, "/");
   const findings = [];
+  const seenFindings = new Set();
+
+  function addFinding(finding) {
+    const key = `${finding.rule}:${finding.file}:${finding.line}`;
+    if (seenFindings.has(key)) return;
+    seenFindings.add(key);
+    findings.push(finding);
+  }
 
   for (const rule of DEFAULT_RULES) {
     if (rule.patterns) {
@@ -155,11 +164,11 @@ function scanFile(file, root) {
         const re = new RegExp(pattern, "gi");
         let match;
         while ((match = re.exec(content)) !== null) {
-          findings.push({
+          addFinding({
             rule: rule.id,
             level: rule.level,
             description: rule.description,
-            file: relative(root, file).replace(/\\/g, "/"),
+            file: relativeFile,
             line: lineNumber(content, match.index),
             match: match[0].slice(0, 120)
           });
@@ -172,11 +181,11 @@ function scanFile(file, root) {
       const re = new RegExp(rule.countPattern, "gi");
       const count = [...content.matchAll(re)].length;
       if (count >= rule.minCount) {
-        findings.push({
+        addFinding({
           rule: rule.id,
           level: rule.level,
           description: `${rule.description} Found ${count} card-like wrappers.`,
-          file: relative(root, file).replace(/\\/g, "/"),
+          file: relativeFile,
           line: 1,
           match: `${count} matches`
         });
@@ -197,7 +206,7 @@ function scan(rootPath) {
 
 function formatText(result) {
   const lines = [];
-  lines.push(`agent-design-gate: scanned ${result.filesScanned} UI files`);
+  lines.push(`open-ui-gate: scanned ${result.filesScanned} UI files`);
   if (result.findings.length === 0) {
     lines.push("PASS: no findings");
     return lines.join("\n");
@@ -233,7 +242,7 @@ function main() {
     const shouldFail = result.findings.some((finding) => LEVEL_RANK[finding.level] >= threshold);
     process.exit(shouldFail ? 1 : 0);
   } catch (error) {
-    console.error(`agent-design-gate: ${error.message}`);
+    console.error(`open-ui-gate: ${error.message}`);
     console.error(usage());
     process.exit(2);
   }

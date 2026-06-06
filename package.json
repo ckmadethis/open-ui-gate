@@ -1,18 +1,18 @@
 {
-  "name": "agent-design-gate",
+  "name": "open-ui-gate",
   "version": "0.1.0",
-  "description": "CLI and agent hook pack that catches generic AI frontend output before it ships.",
+  "description": "AI agent UI lint and design gate for catching generic frontend output before it ships.",
   "type": "module",
-  "homepage": "https://github.com/ckmadethis/agent-design-gate#readme",
+  "homepage": "https://github.com/ckmadethis/open-ui-gate#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ckmadethis/agent-design-gate.git"
+    "url": "git+https://github.com/ckmadethis/open-ui-gate.git"
   },
   "bugs": {
-    "url": "https://github.com/ckmadethis/agent-design-gate/issues"
+    "url": "https://github.com/ckmadethis/open-ui-gate/issues"
   },
   "bin": {
-    "agent-design-gate": "bin/agent-design-gate.mjs"
+    "open-ui-gate": "bin/open-ui-gate.mjs"
   },
   "files": [
     "bin",
@@ -20,16 +20,24 @@
     "skills",
     "fixtures",
     "docs",
+    ".github",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md"
   ],
   "scripts": {
-    "scan": "node ./bin/agent-design-gate.mjs scan --path .",
-    "test": "node ./bin/agent-design-gate.mjs scan --path fixtures/good-ui --fail-on warn"
+    "scan": "node ./bin/open-ui-gate.mjs scan --path .",
+    "test": "node --test"
   },
   "keywords": [
     "ai",
     "agents",
+    "ai-agents",
+    "ai-ui-lint",
     "claude-code",
     "codex",
     "frontend",
@@ -37,12 +45,15 @@
     "design-review",
     "frontend-quality",
     "quality-gate",
+    "ui-quality",
+    "ui-lint",
+    "open-ui-gate",
     "hooks",
     "lint",
     "cursor"
   ],
   "author": "CKMADETHIS",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=20"
   }
