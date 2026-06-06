@@ -9,7 +9,7 @@ OpenUI Gate is a tiny CLI and hook pack for teams using coding agents to build f
 - Renamed the project and package to `open-ui-gate`.
 - Switched the licence posture to Apache-2.0 with NOTICE and trademark guidance.
 - Added a Node test suite for pass/fail, JSON output and usage errors.
-- Added a GitHub Actions test workflow.
+- Kept GitHub Actions usage documented in the README.
 - Added contribution, security and conduct guidance.
 - De-duped overlapping findings on the same rule/file/line.
 
