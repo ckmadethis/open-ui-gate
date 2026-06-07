@@ -653,33 +653,6 @@
     .span-4 { grid-column: span 4; }
     .span-3 { grid-column: span 3; }
 
-    .status-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .status {
-      border: 1px solid rgba(192, 132, 252, 0.26);
-      border-radius: 8px;
-      padding: 14px;
-      background: rgba(10, 3, 25, 0.62);
-    }
-
-    .status strong {
-      display: block;
-      color: var(--ink);
-      font-size: 24px;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .status span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
     .comparison-wrap {
       overflow-x: auto;
       border: 1px solid rgba(192, 132, 252, 0.26);
@@ -720,11 +693,6 @@
 
     .yes { color: var(--green); font-weight: 900; }
     .no { color: var(--amber); font-weight: 900; }
-
-    .notice {
-      border-left: 4px solid var(--amber);
-      background: linear-gradient(90deg, rgba(244, 184, 79, 0.13), rgba(18, 8, 42, 0.76));
-    }
 
     .workflow {
       counter-reset: workflow;
@@ -877,9 +845,6 @@
         grid-column: span 12;
       }
 
-      .status-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     @media (max-width: 680px) {
@@ -915,9 +880,6 @@
         padding: 72px 0;
       }
 
-      .status-list {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 520px) {
@@ -1009,7 +971,6 @@
     "name": "OpenUI Gate",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Windows, macOS, Linux",
-    "softwareVersion": "0.1.2",
     "description": "OpenUI Gate is an Apache-2.0 CLI and hook pack that catches generic AI-looking frontend output before it ships.",
     "url": "https://openui.ckmadethis.com/",
     "codeRepository": "https://github.com/ckmadethis/open-ui-gate",
@@ -1020,11 +981,7 @@
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "0",
-      "ratingCount": "0"
-    }
+    "isAccessibleForFree": true
   }
   </script>
   <script type="application/ld+json">
@@ -1046,14 +1003,6 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "No. OpenUI Gate is a CLI and hook pack for frontend quality checks. It is not a component library, UI kit or design system."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is OpenUI Gate published on npm?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Not yet. The current install path uses npx with the GitHub repository."
         }
       },
       {
@@ -1080,12 +1029,11 @@
       </a>
       <div class="command-pill" aria-label="Current install path">
         <span>npx github:ckmadethis/open-ui-gate</span>
-        <kbd>v0.1.2</kbd>
+        <kbd>CLI</kbd>
       </div>
       <div class="links">
         <a href="#checks">Checks</a>
         <a href="#compare">Compare</a>
-        <a href="#status">Status</a>
         <a href="https://github.com/ckmadethis/open-ui-gate">GitHub</a>
       </div>
     </div>
@@ -1095,7 +1043,7 @@
     <header class="hero">
       <div class="wrap hero-grid">
         <div class="reveal">
-          <a class="pill" href="#status">v0.1.2 is the current public release</a>
+          <a class="pill" href="#checks">Catch agent UI drift before merge</a>
           <h1>
             <span class="headline-line">How do I stop</span>
             <span class="headline-glow">AI-looking UI</span>
@@ -1119,19 +1067,19 @@
           <div class="signal-strip" aria-label="Verified project facts">
             <span>Apache-2.0</span>
             <span>GitHub install path</span>
-            <span>npm not published yet</span>
-            <span>feedback issue open</span>
+            <span>agent workflow ready</span>
+            <span>machine-readable output</span>
           </div>
         </div>
 
         <div class="proof-stage reveal" aria-label="OpenUI Gate repository proof stage">
           <div class="badge-orbit badge-1"><span class="hex">01</span><span><strong>Apache-2.0</strong><span>Open source licence in the repository.</span></span></div>
           <div class="badge-orbit badge-2"><span class="hex">02</span><span><strong>GitHub install</strong><span>Current npx path runs from the public repo.</span></span></div>
-          <div class="badge-orbit badge-3"><span class="hex">03</span><span><strong>npm note</strong><span>The package is not published on npm yet.</span></span></div>
-          <div class="badge-orbit badge-4"><span class="hex">04</span><span><strong>Feedback open</strong><span>False positives go through GitHub issues.</span></span></div>
+          <div class="badge-orbit badge-3"><span class="hex">03</span><span><strong>CLI scan</strong><span>Finds weak generated UI patterns before merge.</span></span></div>
+          <div class="badge-orbit badge-4"><span class="hex">04</span><span><strong>JSON output</strong><span>Findings can feed another review agent.</span></span></div>
           <figure class="proof">
-            <img src="assets/open-ui-gate-github.png" alt="Current OpenUI Gate GitHub repository screenshot">
-            <figcaption class="proof-caption">Real repository screenshot captured for this site. No fake social proof.</figcaption>
+            <img src="assets/open-ui-gate-github.png" alt="OpenUI Gate repository source file list screenshot">
+            <figcaption class="proof-caption">Real repository source view, cropped to show the project files and licence.</figcaption>
           </figure>
         </div>
       </div>
@@ -1221,26 +1169,6 @@
       </div>
     </section>
 
-    <section id="status">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">Public status</span>
-          <h2>Public status, no invented proof</h2>
-          <p>The current public release is v0.1.2. Anything not verified stays off the page.</p>
-        </div>
-        <div class="status-list reveal" aria-label="Current project status">
-          <div class="status"><strong>0</strong><span>verified public ratings claimed</span></div>
-          <div class="status"><strong>8</strong><span>rule families in first release</span></div>
-          <div class="status"><strong>1</strong><span>public feedback issue linked</span></div>
-          <div class="status"><strong>0</strong><span>npm package publish claims</span></div>
-        </div>
-        <article class="panel notice reveal" style="margin-top:14px">
-          <h3>npm note</h3>
-          <p>OpenUI Gate is not published on npm yet. The current install command runs directly from the public GitHub repository.</p>
-        </article>
-      </div>
-    </section>
-
     <section>
       <div class="wrap">
         <div class="section-head reveal">
@@ -1279,10 +1207,6 @@
           <details class="reveal">
             <summary>Is OpenUI Gate a design system?</summary>
             <p>No. It is a CLI and hook pack. It does not provide components, tokens or a UI kit.</p>
-          </details>
-          <details class="reveal">
-            <summary>Is OpenUI Gate published on npm?</summary>
-            <p>Not yet. Use the GitHub npx command until the npm package is published.</p>
           </details>
           <details class="reveal">
             <summary>What licence does OpenUI Gate use?</summary>
