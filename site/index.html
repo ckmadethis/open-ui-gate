@@ -9,44 +9,86 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://openui.ckmadethis.com/">
   <meta property="og:image" content="https://openui.ckmadethis.com/assets/open-ui-gate-github.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2305020d'/%3E%3Cpath d='M32 8 56 32 32 56 8 32Z' fill='%2383f0ff'/%3E%3Cpath d='M32 18 46 32 32 46 18 32Z' fill='%2314002e'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23d18cff'/%3E%3C/svg%3E">
   <title>How do I stop AI-looking UI? OpenUI Gate</title>
   <style>
     :root {
       color-scheme: dark;
-      --ink: #f6f8fb;
-      --muted: #aeb8c7;
-      --soft: #dce4ee;
-      --paper: #0c1118;
-      --band: #121a24;
-      --panel: #172231;
-      --line: #304052;
+      --void: #05020d;
+      --black: #090014;
+      --deep: #14002e;
+      --panel: rgba(18, 8, 42, 0.76);
+      --panel-strong: rgba(13, 6, 28, 0.92);
+      --line: rgba(192, 132, 252, 0.27);
+      --line-strong: rgba(192, 132, 252, 0.58);
+      --ink: #ffffff;
+      --soft: #efe7ff;
+      --muted: rgba(222, 208, 255, 0.76);
+      --quiet: rgba(222, 208, 255, 0.58);
+      --plasma-700: #7426c9;
+      --plasma-500: #9658ee;
+      --plasma-400: #b66aff;
+      --plasma-300: #d18cff;
+      --cyan: #83f0ff;
       --green: #78e0a1;
-      --green-strong: #2bb673;
       --amber: #f4b84f;
-      --blue: #7fb3ff;
       --red: #ff8a7a;
-      --shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.58);
+      --glow: 0 0 34px rgba(168, 85, 247, 0.34), 0 0 90px rgba(109, 40, 217, 0.22);
       --max: 1180px;
+      --font-display: Inter, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      --font-body: Inter, "Segoe UI", system-ui, sans-serif;
+      --font-mono: "Fira Code", "SFMono-Regular", Consolas, monospace;
     }
 
     * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      background: var(--paper);
+      background: var(--void);
+      overflow-x: hidden;
     }
 
     body {
       margin: 0;
       min-width: 320px;
+      overflow-x: hidden;
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        linear-gradient(135deg, rgba(43, 182, 115, 0.16), transparent 42%),
-        linear-gradient(220deg, rgba(127, 179, 255, 0.1), transparent 46%),
-        linear-gradient(180deg, #0a0f15 0%, #0c1118 45%, #111820 100%);
+      font-family: var(--font-body);
       line-height: 1.5;
       letter-spacing: 0;
+      background:
+        linear-gradient(180deg, rgba(5, 2, 13, 0.38), rgba(5, 2, 13, 0.92)),
+        linear-gradient(135deg, rgba(109, 40, 217, 0.34), transparent 34rem),
+        linear-gradient(220deg, rgba(131, 240, 255, 0.12), transparent 42rem),
+        linear-gradient(180deg, var(--void), var(--black) 44%, #020006);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    body::before {
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='146' height='146' viewBox='0 0 146 146'%3E%3Cpath fill='%23ffffff' opacity='.58' d='M12 12h1v1h-1zM80 42h1v1h-1zM34 100h1v1h-1zM108 124h1v1h-1z'/%3E%3Cpath fill='%23c084fc' opacity='.62' d='M122 70h1v1h-1zM55 30h1v1h-1zM18 118h1v1h-1z'/%3E%3C/svg%3E");
+      background-size: 146px 146px;
+      background-position: 0 0;
+      opacity: 0.18;
+      animation: star-drift 42s linear infinite;
+    }
+
+    body::after {
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(180deg, black, transparent 86%);
+      opacity: 0.42;
     }
 
     a {
@@ -54,10 +96,15 @@
       text-decoration: none;
     }
 
+    button {
+      font: inherit;
+    }
+
     a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid var(--blue);
-      outline-offset: 3px;
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
     }
 
     .wrap {
@@ -67,90 +114,336 @@
 
     .nav {
       position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid rgba(220, 228, 238, 0.12);
-      background: rgba(12, 17, 24, 0.88);
-      backdrop-filter: blur(16px);
+      top: 14px;
+      z-index: 50;
+      width: min(1240px, calc(100% - 28px));
+      margin: 0 auto;
+      border: 1px solid rgba(192, 132, 252, 0.24);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(18, 7, 40, 0.84), rgba(8, 3, 22, 0.66));
+      box-shadow: 0 16px 60px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(22px);
     }
 
     .nav-inner {
       min-height: 64px;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
       gap: 18px;
+      padding: 10px 12px;
     }
 
     .brand {
-      display: inline-flex;
+      display: inline-grid;
+      grid-template-columns: 42px auto;
       align-items: center;
       gap: 10px;
-      font-weight: 850;
+      min-width: 174px;
     }
 
     .mark {
-      width: 34px;
-      height: 34px;
+      position: relative;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(120, 224, 161, 0.44);
-      border-radius: 7px;
-      background: #10241a;
-      color: var(--green);
-      font-family: Consolas, "Liberation Mono", monospace;
-      font-weight: 900;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(192, 132, 252, 0.54);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(192, 132, 252, 0.22), rgba(109, 40, 217, 0.18)),
+        rgba(255, 255, 255, 0.05);
+      box-shadow: var(--glow);
+      transform: rotate(45deg);
+    }
+
+    .mark::before,
+    .mark::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      border-radius: 6px;
+    }
+
+    .mark::before {
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(168, 85, 247, 0.2));
+    }
+
+    .mark::after {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      box-shadow: 0 0 24px var(--cyan);
+    }
+
+    .brand-copy {
+      line-height: 1.05;
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 15px;
+      font-weight: 780;
+    }
+
+    .brand-kicker {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
+    .command-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 42px;
+      max-width: 410px;
+      justify-self: center;
+      padding: 0 12px 0 14px;
+      border: 1px solid rgba(192, 132, 252, 0.22);
+      border-radius: 8px;
+      color: rgba(222, 208, 255, 0.72);
+      background: rgba(255, 255, 255, 0.045);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .command-pill kbd {
+      flex: 0 0 auto;
+      padding: 4px 7px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      color: var(--soft);
+      background: rgba(255, 255, 255, 0.06);
+      font-family: var(--font-mono);
+      font-size: 11px;
     }
 
     .links {
       display: flex;
-      gap: 16px;
       align-items: center;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 720;
+      justify-content: flex-end;
+      gap: 2px;
+    }
+
+    .links a {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 11px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      font-weight: 700;
+      transition: color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .links a:hover {
+      color: var(--ink);
+      background: rgba(168, 85, 247, 0.13);
+      box-shadow: inset 0 0 0 1px rgba(192, 132, 252, 0.18);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
     }
 
     .hero {
-      padding: 76px 0 50px;
+      min-height: calc(100vh - 80px);
+      padding: 82px 0 50px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -90px 0 0;
+      z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(5, 2, 13, 0.2), rgba(5, 2, 13, 0.78)),
+        conic-gradient(from 160deg at 72% 36%, rgba(131, 240, 255, 0.14), rgba(168, 85, 247, 0.28), transparent 42%, rgba(109, 40, 217, 0.18), rgba(131, 240, 255, 0.14));
+      opacity: 0.88;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
-      gap: 34px;
+      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+      gap: 36px;
       align-items: center;
     }
 
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--green);
-      font-size: 13px;
+    .eyebrow,
+    .pill,
+    .rule-id,
+    .metric-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border: 1px solid rgba(192, 132, 252, 0.24);
+      border-radius: 999px;
+      color: var(--plasma-300);
+      background: rgba(168, 85, 247, 0.08);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 720;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      font-weight: 850;
-      letter-spacing: 0.08em;
+    }
+
+    .pill {
+      min-height: 38px;
+      color: var(--soft);
+      background: linear-gradient(90deg, rgba(109, 40, 217, 0.24), rgba(131, 240, 255, 0.08));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 36px rgba(109, 40, 217, 0.2);
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 720;
     }
 
     h1 {
-      margin: 0;
+      margin: 22px 0 22px;
       max-width: 780px;
-      font-size: 58px;
-      line-height: 0.98;
+      font-family: var(--font-display);
+      font-size: clamp(52px, 7.4vw, 112px);
+      line-height: 0.88;
       letter-spacing: 0;
+      font-weight: 920;
+      text-transform: uppercase;
+    }
+
+    .headline-line {
+      display: block;
+      color: rgba(255, 255, 255, 0.94);
+      text-shadow: 0 0 40px rgba(192, 132, 252, 0.16);
+    }
+
+    .headline-glow {
+      display: inline-block;
+      transform: skewX(-9deg);
+      color: transparent;
+      background:
+        linear-gradient(100deg, #fff 0%, #efe8ff 18%, var(--cyan) 40%, #fff 57%, var(--plasma-300) 80%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(168, 85, 247, 0.58));
+      animation: chrome-sheen 4.5s linear infinite;
+      background-size: 240% 100%;
     }
 
     .lead {
-      margin: 18px 0 18px;
-      max-width: 720px;
-      color: var(--soft);
-      font-size: 18px;
+      margin: 0 0 24px;
+      max-width: 58ch;
+      color: rgba(238, 229, 255, 0.84);
+      font-size: clamp(17px, 1.6vw, 20px);
+      line-height: 1.62;
     }
 
+    .cta-row,
     .actions {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-top: 18px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(192, 132, 252, 0.42);
+      color: var(--ink);
+      background: transparent;
+      font-size: 14px;
+      font-weight: 780;
+      transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease, background 190ms ease;
+    }
+
+    .btn-primary {
+      color: #090014;
+      background: linear-gradient(135deg, #ffffff, var(--cyan) 52%, var(--plasma-300));
+      border-color: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 16px 46px rgba(109, 40, 217, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.38);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 22px 70px rgba(168, 85, 247, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .github-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .terminal {
+      margin-top: 22px;
+      border: 1px solid rgba(192, 132, 252, 0.34);
+      border-radius: 8px;
+      background: rgba(7, 2, 18, 0.86);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .terminal-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(192, 132, 252, 0.2);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .copy-command {
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid rgba(131, 240, 255, 0.32);
+      border-radius: 8px;
+      color: var(--cyan);
+      background: rgba(131, 240, 255, 0.08);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      padding: 16px;
+      color: #e9dcff;
+      font: 14px/1.65 var(--font-mono);
     }
 
     .signal-strip {
@@ -164,76 +457,54 @@
     }
 
     .signal-strip span {
-      border: 1px solid rgba(120, 224, 161, 0.22);
+      border: 1px solid rgba(192, 132, 252, 0.24);
       border-radius: 999px;
-      background: rgba(120, 224, 161, 0.07);
+      background: rgba(168, 85, 247, 0.08);
       padding: 6px 10px;
     }
 
-    .btn {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 10px 15px;
-      border-radius: 7px;
-      border: 1px solid var(--line);
-      font-weight: 850;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #07110b;
-      border-color: var(--green);
-    }
-
-    .btn-secondary {
-      color: var(--ink);
-      background: rgba(246, 248, 251, 0.06);
-    }
-
-    .terminal {
-      border: 1px solid rgba(120, 224, 161, 0.34);
+    .proof-stage {
+      position: relative;
+      min-height: 650px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(192, 132, 252, 0.18);
       border-radius: 8px;
-      background: #07100c;
-      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+        rgba(5, 2, 13, 0.28);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       overflow: hidden;
+      backdrop-filter: blur(12px);
     }
 
-    .terminal-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(120, 224, 161, 0.2);
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    pre {
-      margin: 0;
-      white-space: pre-wrap;
-      overflow-x: auto;
-      padding: 16px;
-      color: #d7ffe5;
-      font: 14px/1.6 Consolas, "Liberation Mono", monospace;
+    .proof-stage::before {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px dashed rgba(192, 132, 252, 0.4);
+      box-shadow: inset 0 0 70px rgba(168, 85, 247, 0.2), 0 0 90px rgba(109, 40, 217, 0.2);
+      animation: ring-spin 24s linear infinite;
     }
 
     .proof {
-      border: 1px solid var(--line);
+      position: relative;
+      z-index: 3;
+      width: min(92%, 620px);
+      margin: 0;
+      border: 1px solid rgba(192, 132, 252, 0.3);
       border-radius: 8px;
-      background: rgba(23, 34, 49, 0.82);
-      box-shadow: var(--shadow);
+      background: rgba(10, 3, 25, 0.72);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.44), 0 0 60px rgba(168, 85, 247, 0.22);
       overflow: hidden;
+      transform: perspective(1100px) rotateY(-5deg) rotateX(2deg);
     }
 
     .proof img {
       display: block;
       width: 100%;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(192, 132, 252, 0.24);
     }
 
     .proof-caption {
@@ -242,21 +513,102 @@
       font-size: 14px;
     }
 
+    .badge-orbit {
+      position: absolute;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      width: 218px;
+      padding: 10px;
+      border: 1px solid rgba(192, 132, 252, 0.34);
+      border-radius: 8px;
+      background: rgba(10, 3, 25, 0.66);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(14px);
+      animation: badge-bob 4.6s ease-in-out infinite;
+    }
+
+    .badge-1 { top: 10%; left: 4%; }
+    .badge-2 { top: 9%; right: 5%; animation-delay: -0.5s; }
+    .badge-3 { bottom: 11%; left: 8%; animation-delay: -1s; }
+    .badge-4 { right: 8%; bottom: 11%; animation-delay: -1.5s; }
+
+    .hex,
+    .rule-id {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      clip-path: polygon(50% 0, 94% 25%, 94% 75%, 50% 100%, 6% 75%, 6% 25%);
+      border: 0;
+      border-radius: 0;
+      color: var(--void);
+      background: linear-gradient(145deg, var(--cyan), var(--plasma-300));
+      box-shadow: 0 0 24px rgba(192, 132, 252, 0.54);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .badge-orbit strong,
+    .panel h3,
+    .timeline-step strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .badge-orbit span span,
+    .panel p,
+    .timeline-step p {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
     section {
-      padding: 54px 0;
-      border-top: 1px solid rgba(220, 228, 238, 0.1);
+      position: relative;
+      padding: 104px 0;
+      border-top: 1px solid rgba(192, 132, 252, 0.14);
+      isolation: isolate;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(5, 2, 13, 0.72), rgba(5, 2, 13, 0.24) 50%, rgba(5, 2, 13, 0.72)),
+        linear-gradient(180deg, rgba(168, 85, 247, 0.08), transparent 45%, rgba(131, 240, 255, 0.04));
+      pointer-events: none;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
     }
 
     h2 {
-      margin: 0 0 12px;
-      font-size: 32px;
-      line-height: 1.08;
+      margin: 14px 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.02;
       letter-spacing: 0;
+      font-weight: 860;
     }
 
     h3 {
       margin: 0 0 8px;
       font-size: 18px;
+      line-height: 1.15;
       letter-spacing: 0;
     }
 
@@ -265,9 +617,12 @@
       color: var(--muted);
     }
 
-    .section-head {
-      max-width: 760px;
-      margin-bottom: 22px;
+    .section-head p {
+      margin: 0 auto;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.62;
     }
 
     .grid {
@@ -278,31 +633,25 @@
 
     .panel {
       min-height: 100%;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(192, 132, 252, 0.26);
       border-radius: 8px;
-      background: rgba(23, 34, 49, 0.76);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.074), rgba(255, 255, 255, 0.026)), var(--panel);
       padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 22px 80px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(14px);
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    }
+
+    .panel:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.44);
+      box-shadow: 0 24px 80px rgba(109, 40, 217, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .span-12 { grid-column: span 12; }
     .span-6 { grid-column: span 6; }
     .span-4 { grid-column: span 4; }
     .span-3 { grid-column: span 3; }
-
-    .rule-id {
-      display: inline-flex;
-      align-items: center;
-      min-width: 36px;
-      justify-content: center;
-      margin-bottom: 12px;
-      border-radius: 999px;
-      background: rgba(120, 224, 161, 0.12);
-      color: var(--green);
-      font-weight: 900;
-      font-family: Consolas, "Liberation Mono", monospace;
-      padding: 4px 9px;
-      border: 1px solid rgba(120, 224, 161, 0.24);
-    }
 
     .status-list {
       display: grid;
@@ -312,14 +661,15 @@
     }
 
     .status {
-      border: 1px solid var(--line);
+      border: 1px solid rgba(192, 132, 252, 0.26);
       border-radius: 8px;
       padding: 14px;
-      background: rgba(12, 17, 24, 0.62);
+      background: rgba(10, 3, 25, 0.62);
     }
 
     .status strong {
       display: block;
+      color: var(--ink);
       font-size: 24px;
       line-height: 1;
       margin-bottom: 8px;
@@ -330,29 +680,38 @@
       font-size: 13px;
     }
 
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(192, 132, 252, 0.26);
+      border-radius: 8px;
+      background: rgba(18, 8, 42, 0.76);
+      box-shadow: var(--shadow);
+    }
+
     table {
       width: 100%;
+      min-width: 760px;
       border-collapse: collapse;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(23, 34, 49, 0.76);
     }
 
     th,
     td {
-      border-bottom: 1px solid var(--line);
-      padding: 13px;
+      border-bottom: 1px solid rgba(192, 132, 252, 0.22);
+      padding: 14px;
       text-align: left;
       vertical-align: top;
     }
 
     th {
       color: var(--soft);
-      background: rgba(12, 17, 24, 0.72);
+      background: rgba(10, 3, 25, 0.78);
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0.06em;
+    }
+
+    td {
+      color: rgba(238, 229, 255, 0.82);
     }
 
     tr:last-child td {
@@ -364,16 +723,17 @@
 
     .notice {
       border-left: 4px solid var(--amber);
-      background: rgba(244, 184, 79, 0.08);
+      background: linear-gradient(90deg, rgba(244, 184, 79, 0.13), rgba(18, 8, 42, 0.76));
     }
 
     .workflow {
       counter-reset: workflow;
+      margin-bottom: 14px;
     }
 
     .workflow .panel {
       position: relative;
-      padding-top: 46px;
+      padding-top: 50px;
     }
 
     .workflow .panel::before {
@@ -382,13 +742,13 @@
       position: absolute;
       top: 16px;
       left: 18px;
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
       display: grid;
       place-items: center;
-      border-radius: 50%;
-      background: rgba(127, 179, 255, 0.12);
-      color: var(--blue);
+      clip-path: polygon(50% 0, 94% 25%, 94% 75%, 50% 100%, 6% 75%, 6% 25%);
+      background: linear-gradient(145deg, var(--cyan), var(--plasma-300));
+      color: var(--void);
       font-weight: 900;
     }
 
@@ -398,10 +758,11 @@
     }
 
     details {
-      border: 1px solid var(--line);
+      border: 1px solid rgba(192, 132, 252, 0.26);
       border-radius: 8px;
-      background: rgba(23, 34, 49, 0.76);
+      background: rgba(18, 8, 42, 0.76);
       padding: 14px 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     summary {
@@ -415,30 +776,99 @@
     }
 
     footer {
-      border-top: 1px solid rgba(220, 228, 238, 0.1);
-      padding: 30px 0 44px;
+      position: relative;
+      border-top: 1px solid rgba(192, 132, 252, 0.16);
+      padding: 38px 0 50px;
       color: var(--muted);
       font-size: 14px;
+      background:
+        linear-gradient(180deg, rgba(20, 0, 46, 0.42), rgba(5, 2, 13, 0.94)),
+        linear-gradient(90deg, rgba(131, 240, 255, 0.05), rgba(168, 85, 247, 0.12));
     }
 
     .footer-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 16px;
       flex-wrap: wrap;
     }
 
-    @media (max-width: 920px) {
+    .footer-row a {
+      color: var(--soft);
+      font-weight: 760;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: transform 220ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes star-drift {
+      from { background-position: 0 0, 34px 52px; }
+      to { background-position: 90px 90px, 180px 198px; }
+    }
+
+    @keyframes ring-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes badge-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes chrome-sheen {
+      to { background-position: 240% 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 1040px) {
+      .nav-inner {
+        grid-template-columns: auto 1fr;
+      }
+
+      .command-pill {
+        display: none;
+      }
+
       .hero-grid {
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 42px;
+      .proof-stage {
+        min-height: 610px;
       }
+    }
 
+    @media (max-width: 920px) {
       .links {
         display: none;
+      }
+
+      .nav-inner {
+        display: flex;
+        justify-content: center;
+      }
+
+      h1 {
+        font-size: clamp(46px, 13vw, 82px);
       }
 
       .span-6,
@@ -452,32 +882,123 @@
       }
     }
 
-    @media (max-width: 560px) {
-      h1 {
-        font-size: 34px;
-      }
-
-      h2 {
-        font-size: 26px;
-      }
-
+    @media (max-width: 680px) {
       .hero {
-        padding-top: 44px;
+        padding-top: 46px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 15vw, 64px);
+        line-height: 0.92;
+      }
+
+      .proof-stage {
+        min-height: 650px;
+        padding: 140px 0 130px;
+      }
+
+      .proof {
+        width: min(92%, 440px);
+        transform: none;
+      }
+
+      .badge-orbit {
+        width: min(220px, calc(100% - 36px));
+      }
+
+      .badge-1 { top: 20px; left: 18px; right: auto; }
+      .badge-2 { top: 96px; right: 18px; left: auto; }
+      .badge-3 { bottom: 96px; left: 18px; right: auto; }
+      .badge-4 { bottom: 20px; right: 18px; left: auto; }
+
+      section {
+        padding: 72px 0;
       }
 
       .status-list {
         grid-template-columns: 1fr;
       }
+    }
 
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .brand-kicker {
+        display: none;
+      }
+
+      .cta-row,
+      .actions {
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .terminal-bar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .comparison-wrap {
+        overflow-x: visible;
+      }
+
+      table,
+      thead,
+      tbody,
+      tr,
       th,
       td {
         display: block;
         width: 100%;
+        min-width: 0;
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
       }
 
       tr {
-        display: block;
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid rgba(192, 132, 252, 0.24);
+      }
+
+      tr:last-child {
+        border-bottom: 0;
+      }
+
+      td {
+        display: grid;
+        grid-template-columns: minmax(92px, 0.38fr) minmax(0, 1fr);
+        gap: 12px;
+        border-bottom: 0;
+        padding: 11px 12px;
+        overflow-wrap: anywhere;
+      }
+
+      td::before {
+        content: attr(data-label);
+        color: var(--quiet);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
     }
   </style>
@@ -549,11 +1070,18 @@
 </head>
 <body>
   <nav class="nav" aria-label="Primary navigation">
-    <div class="wrap nav-inner">
+    <div class="nav-inner">
       <a class="brand" href="#top" aria-label="OpenUI Gate home">
-        <span class="mark">UI</span>
-        <span>OpenUI Gate</span>
+        <span class="mark" aria-hidden="true"></span>
+        <span class="brand-copy">
+          <span class="brand-name">OpenUI Gate</span>
+          <span class="brand-kicker">AI UI LINT</span>
+        </span>
       </a>
+      <div class="command-pill" aria-label="Current install path">
+        <span>npx github:ckmadethis/open-ui-gate</span>
+        <kbd>v0.1.2</kbd>
+      </div>
       <div class="links">
         <a href="#checks">Checks</a>
         <a href="#compare">Compare</a>
@@ -566,16 +1094,26 @@
   <main id="top">
     <header class="hero">
       <div class="wrap hero-grid">
-        <div>
-          <p class="eyebrow">AI UI lint for agent-built frontends</p>
-          <h1>How do I stop AI-looking UI before it ships?</h1>
+        <div class="reveal">
+          <a class="pill" href="#status">v0.1.2 is the current public release</a>
+          <h1>
+            <span class="headline-line">How do I stop</span>
+            <span class="headline-glow">AI-looking UI</span>
+            <span class="headline-line">before it ships?</span>
+          </h1>
           <p class="lead">OpenUI Gate is an Apache-2.0 CLI and hook pack that scans frontend files for generic agent output before it ships.</p>
           <div class="terminal" aria-label="Install command">
-            <div class="terminal-bar"><span>Run from GitHub</span><span>v0.1.2</span></div>
+            <div class="terminal-bar">
+              <span>Run from GitHub</span>
+              <button class="copy-command" type="button" data-copy="npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn">Copy</button>
+            </div>
             <pre>npx --yes github:ckmadethis/open-ui-gate scan --path ./app --fail-on warn</pre>
           </div>
           <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/ckmadethis/open-ui-gate">View GitHub repo</a>
+            <a class="btn btn-primary" href="https://github.com/ckmadethis/open-ui-gate">
+              <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5v-1.75c-2.78.62-3.37-1.22-3.37-1.22-.45-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.93.85.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 7.05c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.76 0 3.95-2.34 4.82-4.57 5.08.36.32.68.94.68 1.9v2.82c0 .28.18.61.69.5A10.15 10.15 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
+              View GitHub repo
+            </a>
             <a class="btn btn-secondary" href="https://github.com/ckmadethis/open-ui-gate/issues/1">Report a false positive</a>
           </div>
           <div class="signal-strip" aria-label="Verified project facts">
@@ -585,99 +1123,118 @@
             <span>feedback issue open</span>
           </div>
         </div>
-        <figure class="proof">
-          <img src="assets/open-ui-gate-github.png" alt="Current OpenUI Gate GitHub repository screenshot">
-          <figcaption class="proof-caption">Real repository screenshot captured for this site. No fake social proof.</figcaption>
-        </figure>
+
+        <div class="proof-stage reveal" aria-label="OpenUI Gate repository proof stage">
+          <div class="badge-orbit badge-1"><span class="hex">01</span><span><strong>Apache-2.0</strong><span>Open source licence in the repository.</span></span></div>
+          <div class="badge-orbit badge-2"><span class="hex">02</span><span><strong>GitHub install</strong><span>Current npx path runs from the public repo.</span></span></div>
+          <div class="badge-orbit badge-3"><span class="hex">03</span><span><strong>npm note</strong><span>The package is not published on npm yet.</span></span></div>
+          <div class="badge-orbit badge-4"><span class="hex">04</span><span><strong>Feedback open</strong><span>False positives go through GitHub issues.</span></span></div>
+          <figure class="proof">
+            <img src="assets/open-ui-gate-github.png" alt="Current OpenUI Gate GitHub repository screenshot">
+            <figcaption class="proof-caption">Real repository screenshot captured for this site. No fake social proof.</figcaption>
+          </figure>
+        </div>
       </div>
     </header>
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Agent workflow fit</span>
           <h2>Built for developers using coding agents</h2>
           <p>No paywall claim. No fake community count. OpenUI Gate is a small public tool for teams who want a hard stop before generated frontend work becomes a commit.</p>
         </div>
         <div class="grid">
-          <article class="panel span-3"><h3>Claude Code</h3><p>Use the hook reminder when an agent edits frontend files, then run the CLI before the final response.</p></article>
-          <article class="panel span-3"><h3>Codex</h3><p>Use OpenUI Gate after UI edits to catch generic copy, weak actions and obvious fake media.</p></article>
-          <article class="panel span-3"><h3>Cursor</h3><p>Run the scan against app or component folders before accepting agent-generated frontend changes.</p></article>
-          <article class="panel span-3"><h3>Review agents</h3><p>Use JSON output when another tool needs machine-readable findings.</p></article>
+          <article class="panel span-3 reveal"><span class="hex">CC</span><h3>Claude Code</h3><p>Use the hook reminder when an agent edits frontend files, then run the CLI before the final response.</p></article>
+          <article class="panel span-3 reveal"><span class="hex">CX</span><h3>Codex</h3><p>Use OpenUI Gate after UI edits to catch generic copy, weak actions and obvious fake media.</p></article>
+          <article class="panel span-3 reveal"><span class="hex">CU</span><h3>Cursor</h3><p>Run the scan against app or component folders before accepting agent-generated frontend changes.</p></article>
+          <article class="panel span-3 reveal"><span class="hex">RA</span><h3>Review agents</h3><p>Use JSON output when another tool needs machine-readable findings.</p></article>
         </div>
       </div>
     </section>
 
     <section id="checks">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Rule matrix</span>
           <h2>Which agent UI mistakes does OpenUI Gate catch?</h2>
           <p>The first release checks 8 rule families that make generated frontend work look generic even when the code compiles.</p>
         </div>
         <div class="grid">
-          <article class="panel span-3"><span class="rule-id">01</span><h3>Placeholder content</h3><p>Flags dummy Latin copy, unfinished task-marker copy and obvious fake company language.</p></article>
-          <article class="panel span-3"><span class="rule-id">02</span><h3>Generic AI copy</h3><p>Flags vague power-copy and similar marketing defaults.</p></article>
-          <article class="panel span-3"><span class="rule-id">03</span><h3>Default gradients</h3><p>Flags common violet, purple and indigo gradient recipes when they dominate UI code.</p></article>
-          <article class="panel span-3"><span class="rule-id">04</span><h3>Decorative filler</h3><p>Flags decorative background filler often used to fill space.</p></article>
-          <article class="panel span-3"><span class="rule-id">05</span><h3>Weak commands</h3><p>Flags generic button text that needs product-specific action language.</p></article>
-          <article class="panel span-3"><span class="rule-id">06</span><h3>Missing alt text</h3><p>Flags image-like elements that lack useful alternate text.</p></article>
-          <article class="panel span-3"><span class="rule-id">07</span><h3>Fake media</h3><p>Flags placeholder image files, stock placeholder URLs and replacement tokens.</p></article>
-          <article class="panel span-3"><span class="rule-id">08</span><h3>Nested-card risk</h3><p>Flags dense card-like wrapper patterns that need human layout review.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">01</span><h3>Placeholder content</h3><p>Flags dummy Latin copy, unfinished task-marker copy and obvious fake company language.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">02</span><h3>Generic AI copy</h3><p>Flags vague power-copy and similar marketing defaults.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">03</span><h3>Default gradients</h3><p>Flags common violet, purple and indigo gradient recipes when they dominate UI code.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">04</span><h3>Decorative filler</h3><p>Flags decorative background filler often used to fill space.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">05</span><h3>Weak commands</h3><p>Flags generic button text that needs product-specific action language.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">06</span><h3>Missing alt text</h3><p>Flags image-like elements that lack useful alternate text.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">07</span><h3>Fake media</h3><p>Flags placeholder image files, stock placeholder URLs and replacement tokens.</p></article>
+          <article class="panel span-3 reveal"><span class="rule-id">08</span><h3>Nested-card risk</h3><p>Flags dense card-like wrapper patterns that need human layout review.</p></article>
         </div>
       </div>
     </section>
 
     <section id="compare">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Tool boundary</span>
           <h2>Where OpenUI Gate fits</h2>
           <p>It is not a replacement for ESLint, accessibility testing or visual regression tooling. It covers the smaller gap those tools usually miss.</p>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Tool type</th>
-              <th>Primary job</th>
-              <th>OpenUI Gate overlap</th>
-              <th>Use together?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>ESLint / Biome / Stylelint</td>
-              <td>Code correctness, conventions and syntax hygiene.</td>
-              <td>OpenUI Gate checks taste-risk patterns in UI source text.</td>
-              <td class="yes">Yes</td>
-            </tr>
-            <tr>
-              <td>Chromatic / Percy / Argos</td>
-              <td>Visual regression and review workflows.</td>
-              <td>OpenUI Gate runs before screenshots and can catch obvious generated content.</td>
-              <td class="yes">Yes</td>
-            </tr>
-            <tr>
-              <td>axe DevTools</td>
-              <td>Accessibility checks and remediation workflows.</td>
-              <td>OpenUI Gate only includes lightweight alt-text signal checks.</td>
-              <td class="yes">Yes</td>
-            </tr>
-            <tr>
-              <td>Component libraries</td>
-              <td>Reusable UI primitives and design tokens.</td>
-              <td>OpenUI Gate is not a component library or design system.</td>
-              <td class="no">Different job</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="comparison-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool type</th>
+                <th>Primary job</th>
+                <th>OpenUI Gate overlap</th>
+                <th>Use together?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Tool type">ESLint / Biome / Stylelint</td>
+                <td data-label="Primary job">Code correctness, conventions and syntax hygiene.</td>
+                <td data-label="OpenUI Gate overlap">OpenUI Gate checks taste-risk patterns in UI source text.</td>
+                <td data-label="Use together?" class="yes">Yes</td>
+              </tr>
+              <tr>
+                <td data-label="Tool type">Chromatic / Percy / Argos</td>
+                <td data-label="Primary job">Visual regression and review workflows.</td>
+                <td data-label="OpenUI Gate overlap">OpenUI Gate runs before screenshots and can catch obvious generated content.</td>
+                <td data-label="Use together?" class="yes">Yes</td>
+              </tr>
+              <tr>
+                <td data-label="Tool type">axe DevTools</td>
+                <td data-label="Primary job">Accessibility checks and remediation workflows.</td>
+                <td data-label="OpenUI Gate overlap">OpenUI Gate only includes lightweight alt-text signal checks.</td>
+                <td data-label="Use together?" class="yes">Yes</td>
+              </tr>
+              <tr>
+                <td data-label="Tool type">Component libraries</td>
+                <td data-label="Primary job">Reusable UI primitives and design tokens.</td>
+                <td data-label="OpenUI Gate overlap">OpenUI Gate is not a component library or design system.</td>
+                <td data-label="Use together?" class="no">Different job</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
     <section id="status">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Public status</span>
           <h2>Public status, no invented proof</h2>
           <p>The current public release is v0.1.2. Anything not verified stays off the page.</p>
         </div>
-        <article class="panel notice" style="margin-top:14px">
+        <div class="status-list reveal" aria-label="Current project status">
+          <div class="status"><strong>0</strong><span>verified public ratings claimed</span></div>
+          <div class="status"><strong>8</strong><span>rule families in first release</span></div>
+          <div class="status"><strong>1</strong><span>public feedback issue linked</span></div>
+          <div class="status"><strong>0</strong><span>npm package publish claims</span></div>
+        </div>
+        <article class="panel notice reveal" style="margin-top:14px">
           <h3>npm note</h3>
           <p>OpenUI Gate is not published on npm yet. The current install command runs directly from the public GitHub repository.</p>
         </article>
@@ -686,16 +1243,17 @@
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">Launch sequence</span>
           <h2>Run the gate in three steps</h2>
           <p>OpenUI Gate works best inside agent workflows, pre-commit scripts and review steps where frontend output needs a hard checklist.</p>
         </div>
-        <div class="grid workflow" style="margin-bottom:14px">
-          <article class="panel span-4"><h3>Point it at UI files</h3><p>Scan an app, source or component folder after an agent has made frontend changes.</p></article>
-          <article class="panel span-4"><h3>Read the findings</h3><p>Each finding includes a rule ID, severity, file path, line number and short match.</p></article>
-          <article class="panel span-4"><h3>Fix the weak surface</h3><p>Replace generic copy, fake media and template-heavy styling before merge.</p></article>
+        <div class="grid workflow">
+          <article class="panel span-4 reveal"><h3>Point it at UI files</h3><p>Scan an app, source or component folder after an agent has made frontend changes.</p></article>
+          <article class="panel span-4 reveal"><h3>Read the findings</h3><p>Each finding includes a rule ID, severity, file path, line number and short match.</p></article>
+          <article class="panel span-4 reveal"><h3>Fix the weak surface</h3><p>Replace generic copy, fake media and template-heavy styling before merge.</p></article>
         </div>
-        <div class="terminal" aria-label="Example scan output">
+        <div class="terminal reveal" aria-label="Example scan output">
           <div class="terminal-bar"><span>Example finding output</span><span>fixtures/bad-ui</span></div>
           <pre>open-ui-gate: scanned 1 UI files
 [ERROR] placeholder-content page.tsx:7 - Placeholder content is visible in UI code. (dummy Latin copy)
@@ -708,24 +1266,25 @@
 
     <section id="faq">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
+          <span class="eyebrow">FAQ</span>
           <h2>FAQ</h2>
           <p>Short answers for developers deciding whether to try it on a frontend repo.</p>
         </div>
         <div class="faq">
-          <details open>
+          <details class="reveal" open>
             <summary>How do I stop AI-looking UI?</summary>
             <p>Run OpenUI Gate against frontend files before merge. It flags common generated UI patterns so an agent or developer can fix them before shipping.</p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>Is OpenUI Gate a design system?</summary>
             <p>No. It is a CLI and hook pack. It does not provide components, tokens or a UI kit.</p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>Is OpenUI Gate published on npm?</summary>
             <p>Not yet. Use the GitHub npx command until the npm package is published.</p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>What licence does OpenUI Gate use?</summary>
             <p>OpenUI Gate is open source under Apache-2.0, with NOTICE and trademark guidance in the repository.</p>
           </details>
@@ -736,9 +1295,43 @@
 
   <footer>
     <div class="wrap footer-row">
-      <span>OpenUI Gate by CKMADETHIS.</span>
-      <span><a href="https://github.com/ckmadethis/open-ui-gate">GitHub</a> · <a href="https://github.com/ckmadethis/open-ui-gate/issues">Issues</a> · <a href="https://raw.githubusercontent.com/ckmadethis/open-ui-gate/master/LICENSE">Apache-2.0</a></span>
+      <a class="brand" href="#top" aria-label="OpenUI Gate home">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="brand-copy">
+          <span class="brand-name">OpenUI Gate</span>
+          <span class="brand-kicker">CKMADETHIS</span>
+        </span>
+      </a>
+      <span><a href="https://github.com/ckmadethis/open-ui-gate">GitHub</a> - <a href="https://github.com/ckmadethis/open-ui-gate/issues">Issues</a> - <a href="https://raw.githubusercontent.com/ckmadethis/open-ui-gate/master/LICENSE">Apache-2.0</a></span>
     </div>
   </footer>
+
+  <script>
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          const original = button.textContent;
+          button.textContent = "Copied";
+          window.setTimeout(() => {
+            button.textContent = original;
+          }, 1400);
+        } catch {
+          button.textContent = "Copy failed";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
