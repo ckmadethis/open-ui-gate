@@ -57,11 +57,7 @@
       font-family: var(--font-body);
       line-height: 1.5;
       letter-spacing: 0;
-      background:
-        linear-gradient(180deg, rgba(5, 2, 13, 0.38), rgba(5, 2, 13, 0.92)),
-        linear-gradient(135deg, rgba(109, 40, 217, 0.34), transparent 34rem),
-        linear-gradient(220deg, rgba(131, 240, 255, 0.12), transparent 42rem),
-        linear-gradient(180deg, var(--void), var(--black) 44%, #020006);
+      background: var(--void);
     }
 
     body::before,
@@ -71,6 +67,7 @@
       inset: 0;
       z-index: -2;
       pointer-events: none;
+      display: none;
     }
 
     body::before {
@@ -258,6 +255,48 @@
       z-index: 1;
     }
 
+    .scene-bg {
+      --scene-desktop: url("assets/backgrounds/hero-desktop.png");
+      --scene-mobile: url("assets/backgrounds/hero-mobile.png");
+      --scene-position: center;
+      --vignette-alpha: 0.02;
+      position: relative;
+      isolation: isolate;
+      background-image: var(--scene-desktop);
+      background-position: var(--scene-position);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .hero-bg {
+      --scene-desktop: url("assets/backgrounds/hero-desktop.png");
+      --scene-mobile: url("assets/backgrounds/hero-mobile.png");
+      --scene-position: center;
+    }
+
+    .matrix-bg {
+      --scene-desktop: url("assets/backgrounds/matrix-desktop.png");
+      --scene-mobile: url("assets/backgrounds/matrix-mobile.png");
+      --scene-position: center;
+    }
+
+    .workflow-bg {
+      --scene-desktop: url("assets/backgrounds/workflow-desktop.png");
+      --scene-mobile: url("assets/backgrounds/workflow-mobile.png");
+      --scene-position: center;
+    }
+
+    .final-bg {
+      --scene-desktop: url("assets/backgrounds/final-desktop.png");
+      --scene-mobile: url("assets/backgrounds/final-mobile.png");
+      --scene-position: center;
+    }
+
+    .scene-bg > * {
+      position: relative;
+      z-index: 1;
+    }
+
     .hero {
       min-height: calc(100vh - 80px);
       padding: 82px 0 50px;
@@ -265,15 +304,13 @@
       isolation: isolate;
     }
 
-    .hero::before {
+    .scene-bg::before {
       content: "";
       position: absolute;
-      inset: -90px 0 0;
-      z-index: -1;
-      background:
-        linear-gradient(180deg, rgba(5, 2, 13, 0.2), rgba(5, 2, 13, 0.78)),
-        conic-gradient(from 160deg at 72% 36%, rgba(131, 240, 255, 0.14), rgba(168, 85, 247, 0.28), transparent 42%, rgba(109, 40, 217, 0.18), rgba(131, 240, 255, 0.14));
-      opacity: 0.88;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 220px rgba(0, 0, 0, var(--vignette-alpha));
     }
 
     .hero-grid {
@@ -580,14 +617,7 @@
     }
 
     section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(90deg, rgba(5, 2, 13, 0.72), rgba(5, 2, 13, 0.24) 50%, rgba(5, 2, 13, 0.72)),
-        linear-gradient(180deg, rgba(168, 85, 247, 0.08), transparent 45%, rgba(131, 240, 255, 0.04));
-      pointer-events: none;
+      content: none;
     }
 
     .section-head {
@@ -749,9 +779,6 @@
       padding: 38px 0 50px;
       color: var(--muted);
       font-size: 14px;
-      background:
-        linear-gradient(180deg, rgba(20, 0, 46, 0.42), rgba(5, 2, 13, 0.94)),
-        linear-gradient(90deg, rgba(131, 240, 255, 0.05), rgba(168, 85, 247, 0.12));
     }
 
     .footer-row {
@@ -848,6 +875,11 @@
     }
 
     @media (max-width: 680px) {
+      .scene-bg {
+        background-image: var(--scene-mobile);
+        background-position: center top;
+      }
+
       .hero {
         padding-top: 46px;
       }
@@ -1040,7 +1072,7 @@
   </nav>
 
   <main id="top">
-    <header class="hero">
+    <header class="hero scene-bg hero-bg">
       <div class="wrap hero-grid">
         <div class="reveal">
           <a class="pill" href="#checks">Catch agent UI drift before merge</a>
@@ -1085,7 +1117,7 @@
       </div>
     </header>
 
-    <section>
+    <section class="scene-bg matrix-bg">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">Agent workflow fit</span>
@@ -1101,7 +1133,7 @@
       </div>
     </section>
 
-    <section id="checks">
+    <section id="checks" class="scene-bg matrix-bg">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">Rule matrix</span>
@@ -1121,7 +1153,7 @@
       </div>
     </section>
 
-    <section id="compare">
+    <section id="compare" class="scene-bg workflow-bg">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">Tool boundary</span>
@@ -1169,7 +1201,7 @@
       </div>
     </section>
 
-    <section>
+    <section class="scene-bg workflow-bg">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">Launch sequence</span>
@@ -1192,7 +1224,7 @@
       </div>
     </section>
 
-    <section id="faq">
+    <section id="faq" class="scene-bg final-bg">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">FAQ</span>
@@ -1217,7 +1249,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="scene-bg final-bg">
     <div class="wrap footer-row">
       <a class="brand" href="#top" aria-label="OpenUI Gate home">
         <span class="mark" aria-hidden="true"></span>
