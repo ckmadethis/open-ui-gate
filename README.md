@@ -2,6 +2,8 @@
 
 ESLint catches broken code. OpenUI Gate catches AI-looking UI.
 
+Website: https://openui.ckmadethis.com
+
 `open-ui-gate` is a tiny CLI and hook pack for teams using Claude Code, Codex, Cursor or other coding agents to build frontend surfaces. It scans UI files for the generic patterns agents keep shipping: placeholder copy, purple gradients, vague CTAs, fake images, nested-card layouts and frontend edits made without design context.
 
 The point is not to replace taste. The point is to give agents a hard checklist before they call a task finished.
